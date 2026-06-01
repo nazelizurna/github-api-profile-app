@@ -1,36 +1,24 @@
-import os
 import requests
+import os
 
-GITHUB_TOKEN = os.getenv("MY_GITHUB_TOKEN")
-USERNAME = os.getenv("MY_GITHUB_USERNAME")
-
+MY_GITHUB_TOKEN = os.getenv("MY_GITHUB_TOKEN")
+MY_GITHUB_USERNAME = os.getenv("MY_GITHUB_USERNAME")
 
 def fetch_github_profile():
-    if not GITHUB_TOKEN or not USERNAME:
-        print("❌ CRITICAL ERROR: Environment variables are missing!")
-        print("Please configure 'MY_GITHUB_TOKEN' and 'MY_GITHUB_USERNAME'.")
-        return
-
-    url = f"https://github.com{USERNAME}"
+    url = f"https://api.github.com/users/{MY_GITHUB_USERNAME}"
     headers = {
-        "Authorization": f"token {GITHUB_TOKEN}",
+        "Authorization": f"token {MY_GITHUB_TOKEN}",
         "Accept": "application/vnd.github.v3+json"
     }
-
-    print(f"Connecting securely to GitHub API...\n")
     response = requests.get(url, headers=headers)
-
     if response.status_code == 200:
         data = response.json()
-        print("🎉 SECURE INTEGRATION SUCCESSFUL!")
-        print("-" * 40)
-        print(f"👤 Account Name: {data.get('name', 'N/A')}")
-        print(f"📂 Public Repos: {data.get('public_repos')}")
-        print(f"👥 Followers:    {data.get('followers')}")
-        print("-" * 40)
+        print("Success!")
+        print(f"Name: {data.get('name')}")
+        print(f"Repos: {data.get('public_repos')}")
+        print(f"Followers: {data.get('followers')}")
     else:
-        print(f"❌ Connection Failed. Status Code: {response.status_code}")
-
+        print(f"Error: {response.status_code}")
 
 if __name__ == "__main__":
     fetch_github_profile()
