@@ -1,8 +1,3 @@
-**README created:** 
-
-### Clean README content (no emojis):
-
-```markdown
 # GitHub Profile Fetcher
 
 Simple Python script to fetch basic public information from any GitHub user profile using the GitHub REST API.
@@ -33,7 +28,7 @@ This script retrieves a user's name, number of public repositories, and follower
 Run the script:
 
 ```bash
-python github_profile.py
+python app.py
 ```
 
 ## Output Example
